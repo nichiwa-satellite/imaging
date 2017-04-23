@@ -1,26 +1,36 @@
 /* ========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
+ * Copyright NICHIWA-SYSTEM, 2017
  * All Rights Reserved
- * UNPUBLISHED, LICENSED SOFTWARE.
- *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
  *
  * ========================================
 */
 #include "project.h"
+#include "initialize.h"
+#include "comunicate.h"
+#include "operation.h"
 
 int main(void)
 {
-    CyGlobalIntEnable; /* Enable global interrupts. */
+    cmd_digit command[COMMAND_SIZE] = {0};
 
-    /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+    Initialize();
 
-    for(;;)
-    {
-        /* Place your application code here. */
+    ReceiveCommand(command);
+
+    switch (ConvertCommand(command)) {
+      case cmd_hello:
+        OpeHello(&SendReply);
+        break;
+      case cmd_panic:
+//        OpePanic();
+        break;
+      case cmd_parroting:
+//        OpeParroting();
+        break;
+      default:
+        break;
     }
-}
 
-/* [] END OF FILE */
+    return 0;
+}
