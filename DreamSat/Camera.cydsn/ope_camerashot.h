@@ -14,6 +14,7 @@
 
 #include "operation.h"
 
+void OpeCameraShot();
 
 #endif //DREAMSAT_CAMERA_CMD_CAMERASHOT_H_
 

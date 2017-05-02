@@ -12,7 +12,7 @@
 
 #include "ope_camerashot.h"
 
-void OpeCameraShot(reply_func reply)
+void OpeCameraShot()
 {
     
 }
