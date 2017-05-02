@@ -10,7 +10,7 @@
 #include "comunicate.h"
 #include "project.h"
 
-#pragma interrupt_handler CmdRxIntr
+#pragma interrupt_handler Comm_Rx_Intr
 
 #define STX_DEF (0x02)
 
@@ -18,7 +18,7 @@ unsigned char recv_data_buff[COMMAND_SIZE];
 int recv_count = 0;
 int recv_stx_flg = 0;
 
-void CmdRxIntr()
+void Comm_Rx_Intr()
 {
     unsigned char recv_data;
     recv_data = UART_TO_CAMERA_GetChar();
@@ -34,12 +34,12 @@ void CmdRxIntr()
     return;
 }
 
-void InitializeUart()
+void InitializeCommUart()
 {
     UART_TO_COMM_Init();
     UART_TO_COMM_Start();
 
-    Comm_Rx_Intr_StartEx(CmdRxIntr);
+    Comm_Rx_Intr_StartEx(Comm_Rx_Intr);
 }
 
 void ReceiveCommand(cmd_digit* command)

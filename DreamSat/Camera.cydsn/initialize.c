@@ -10,7 +10,7 @@
 
 void Initialize()
 {
-    InitializeUart();
+    InitializeCommUart();
     
     CyGlobalIntEnable;
     
