@@ -15,7 +15,7 @@ void ReceiveCommand(cmd_digit* command)
     memcpy(command, "\x02Hello", COMMAND_SIZE);
 }
 
-int SendReply64(reply_digit* reply, size_t reply_size) {
+rettype SendReply64(reply_digit* reply, size_t reply_size) {
     int i;
     char command[5 + 64 * 2 + 2 + 1] = "TXDA ";
     char* temp = command + 5;
@@ -26,10 +26,10 @@ int SendReply64(reply_digit* reply, size_t reply_size) {
     }
     sprintf(temp, "\r\n");
     UART_TO_COMM_PutString(command);
-    return 0;
+    return ret_success;
 }
 
-int SendReply(reply_digit* reply, size_t reply_size) {
+rettype SendReply(reply_digit* reply, size_t reply_size) {
     while (64 < reply_size)
     {
         SendReply64(reply, 64);
@@ -37,5 +37,5 @@ int SendReply(reply_digit* reply, size_t reply_size) {
         reply_size -= 64;
     }
     SendReply64(reply, reply_size);
-    return 0;   
+    return ret_success;   
 }
