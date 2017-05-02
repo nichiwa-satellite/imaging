@@ -10,4 +10,6 @@
 
 void OpeParroting(reply_func reply)
 {
+    reply_digit replytext[6] = "PARROT";
+    (*reply)(replytext, sizeof(replytext));
 }

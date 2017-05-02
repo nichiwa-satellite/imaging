@@ -10,6 +10,8 @@
 #include "comunicate.h"
 #include "project.h"
 
+CY_ISR_PROTO(Comm_Rx_Intr);
+
 #pragma interrupt_handler Comm_Rx_Intr
 
 #define STX_DEF (0x02)
@@ -21,7 +23,7 @@ int recv_stx_flg = 0;
 void Comm_Rx_Intr()
 {
     unsigned char recv_data;
-    recv_data = UART_TO_CAMERA_GetChar();
+    recv_data = UART_TO_COMM_GetChar();
     
     if (!recv_stx_flg) {
         if (recv_data == STX_DEF) {
@@ -46,10 +48,9 @@ void ReceiveCommand(cmd_digit* command)
 {
     recv_count = 0;
     Comm_Rx_Intr_Enable();
-    while (recv_count > COMMAND_SIZE) {}
+    while (recv_count <= COMMAND_SIZE) {}
     Comm_Rx_Intr_Disable();
 
-//    memcpy(command, "\x02Hello", COMMAND_SIZE);
     memcpy(command, recv_data_buff, COMMAND_SIZE);
 }
 

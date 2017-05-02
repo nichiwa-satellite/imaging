@@ -23,10 +23,10 @@ int main(void)
         OpeHello(&SendReply);
         break;
       case cmd_panic:
-//        OpePanic();
+        OpePanic(&SendReply);
         break;
       case cmd_parroting:
-//        OpeParroting();
+        OpeParroting(&SendReply);
         break;
       default:
         break;
