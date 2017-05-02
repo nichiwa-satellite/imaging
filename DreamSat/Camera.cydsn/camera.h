@@ -14,15 +14,12 @@
 #define DREAMSAT_CAMERA_COMMUNICATE_H_
 
 #include "common.h"
+#include <stddef.h>
 
 typedef unsigned char request_digit;
-    
-typedef enum camera_interruptstatetag
-{
-    interrupt_state_recvive_on,
-    interrupt_state_recvive_off,
-    interrupt_state_max,
-} camera_interruptstate;
+
+void Camera_Initialize();
+rettype SendRequest(request_digit* request, size_t request_size, unsigned char *recv_buff, unsigned int recv_buff_size);
 
 #endif //DREAMSAT_CAMERA_COMMUNICATE_H_
 
