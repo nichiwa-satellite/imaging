@@ -10,9 +10,47 @@
 #include "comunicate.h"
 #include "project.h"
 
+#pragma interrupt_handler CmdRxIntr
+
+#define STX_DEF (0x02)
+
+unsigned char recv_data_buff[COMMAND_SIZE];
+int recv_count = 0;
+int recv_stx_flg = 0;
+
+void CmdRxIntr()
+{
+    unsigned char recv_data;
+    recv_data = UART_TO_CAMERA_GetChar();
+    
+    if (!recv_stx_flg) {
+        if (recv_data == STX_DEF) {
+            recv_stx_flg = 1;
+        }
+    } else {
+        recv_data_buff[recv_count] = recv_data;
+        recv_count++;
+    }
+    return;
+}
+
+void InitializeUart()
+{
+    UART_TO_COMM_Init();
+    UART_TO_COMM_Start();
+
+    Comm_Rx_Intr_StartEx(CmdRxIntr);
+}
+
 void ReceiveCommand(cmd_digit* command)
 {
-    memcpy(command, "\x02Hello", COMMAND_SIZE);
+    recv_count = 0;
+    Comm_Rx_Intr_Enable();
+    while (recv_count > COMMAND_SIZE) {}
+    Comm_Rx_Intr_Disable();
+
+//    memcpy(command, "\x02Hello", COMMAND_SIZE);
+    memcpy(command, recv_data_buff, COMMAND_SIZE);
 }
 
 rettype SendReply64(reply_digit* reply, size_t reply_size) {

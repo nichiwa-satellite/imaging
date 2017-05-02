@@ -5,8 +5,13 @@
  *
  * ========================================
 */
+#include "project.h"
+#include "comunicate.h"
 
 void Initialize()
 {
-
+    InitializeUart();
+    
+    CyGlobalIntEnable;
+    
 }

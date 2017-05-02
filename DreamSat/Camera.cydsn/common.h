@@ -24,4 +24,6 @@ typedef enum cmdtypetag
     cmd_parroting
 }cmdtype;
 
+void InitializeUart();
+
 #endif //DREAMSAT_CAMERA_COMMON_H_
