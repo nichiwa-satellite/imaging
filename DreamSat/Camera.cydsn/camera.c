@@ -17,9 +17,9 @@
 CY_ISR_PROTO(Cam_Rx_Intr);
 
 //Variables
-static unsigned char   *buffer;
-static unsigned int    buffer_size;
-static unsigned int    recieve_size;
+static unsigned char   *camera_buff;
+static unsigned int    camera_buff_size;
+static unsigned int    recv_count;
 
 void Camera_Initialize()
 {
@@ -32,37 +32,39 @@ void Camera_Initialize()
 
     /* Interrupt Disable */
     Cam_Rx_Intr_Disable();
+
+    return;
 }
 
-rettype SendRequest(request_digit* request, size_t request_size, unsigned char *recievebuffer, unsigned int recievebuffer_size )
+rettype SendRequest(request_digit* request, size_t request_size, unsigned char *recv_buff, unsigned int recv_buff_size)
 {
     /* Parameter Check */
-    if (recievebuffer == NULL) {
+    if (recv_buff == NULL) {
         return ret_error;    
     }
 
     /* Parameter Check */
-    if (buffer_size == 0) {
+    if (recv_buff_size == 0) {
         return ret_error;
     }
 
     /* Recieve Setup */
-    buffer = recievebuffer;
-    buffer_size = recievebuffer_size;
-    recieve_size = 0;
+    camera_buff = recv_buff;
+    camera_buff_size = recv_buff_size;
+    recv_count = 0;
 
     /* Interrupt Enable */
     Cam_Rx_Intr_Enable();
 
     /* Send Request */
-    UART_TO_CAMERA_PutArray(request,request_size);
+    UART_TO_CAMERA_PutArray(request, request_size);
 
     /* Recieve Complete Wait */
     while (1) {
         /* TODO : TIMEOUT */
-        if (buffer_size <= recieve_size) {
+        if (camera_buff_size <= recv_count) {
             /* Interrupt Disanable */
-            Cam_Rx_Intr_Enable();
+            Cam_Rx_Intr_Disable();
             break;
         }
     }
@@ -81,20 +83,20 @@ void Cam_Rx_Intr()
     recv_data = UART_TO_CAMERA_GetChar();
 
     /* Set Index */
-    index = recieve_size;
+    index = recv_count;
     
     /* Parameter Check */
-    if (buffer == NULL) {
-        return;
-    }
-    
-    /* Buffer Overflow */
-    if (buffer_size <= recieve_size) {
+    if (camera_buff == NULL) {
         return;
     }
 
-    buffer[index] = recv_data;
-    recieve_size++;
+    /* Buffer Overflow */
+    if (camera_buff_size <= recv_count) {
+        return;
+    }
+
+    camera_buff[index] = recv_data;
+    recv_count++;
 
     return;
 }
