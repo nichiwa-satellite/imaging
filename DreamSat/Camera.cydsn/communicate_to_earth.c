@@ -40,7 +40,7 @@ void InitializeUartToEarth()
     IsrEarthRx_StartEx(IsrEarthRx);
 }
 
-void ReceiveCommand(cmd_digit* command)
+void ReceiveCommand(CommandDigit* command)
 {
     recv_count = 0;
     IsrEarthRx_Enable();
@@ -61,7 +61,7 @@ StatusCode SendReply64(reply_digit* reply, size_t reply_size) {
     }
     sprintf(temp, "\r\n");
     UART_TO_EARTH_PutString(command);
-    return kstatus_code_success;
+    return SUCCESS;
 }
 
 StatusCode SendReply(reply_digit* reply, size_t reply_size) {
@@ -72,5 +72,5 @@ StatusCode SendReply(reply_digit* reply, size_t reply_size) {
         reply_size -= 64;
     }
     SendReply64(reply, reply_size);
-    return kstatus_code_success;   
+    return SUCCESS;   
 }

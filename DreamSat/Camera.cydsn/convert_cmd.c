@@ -13,15 +13,15 @@
 #include <string.h>
 #include "common.h"
 
-unsigned short ConvertCommand(cmd_digit* command)
+unsigned short ConvertCommand(CommandDigit* command)
 {
     unsigned short cmd_type = 0;
     if (strcmp((char *)command, "hello")) {
-        cmd_type = kcmd_hello;
+        cmd_type = HELLO;
     } else if (strcmp((char *)command, "panic")) {
-        cmd_type = kcmd_panic;
+        cmd_type = PANIC;
     } else {
-        cmd_type = kcmd_parroting;
+        cmd_type = PARROTTING;
     }
     return cmd_type;
 }

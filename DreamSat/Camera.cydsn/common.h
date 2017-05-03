@@ -9,17 +9,17 @@
 #ifndef DREAMSAT_CAMERA_COMMON_H_
 #define DREAMSAT_CAMERA_COMMON_H_
 
-typedef unsigned char cmd_digit;
+typedef unsigned char CommandDigit;
 
 typedef enum {
-    kstatus_code_success,
-    kstatus_code_error
+    SUCCESS,
+    ERROR
 }StatusCode;
 
 typedef enum {
-    kcmd_hello,
-    kcmd_panic,
-    kcmd_parroting
+    HELLO,
+    PANIC,
+    PARROTTING
 }CommandType;
 
 

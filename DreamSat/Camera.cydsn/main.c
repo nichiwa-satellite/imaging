@@ -16,20 +16,20 @@
 
 int main(void)
 {
-    cmd_digit command[COMMAND_SIZE] = {0};
+    CommandDigit command[COMMAND_SIZE] = {0};
 
     Initialize();
 
     ReceiveCommand(command);
 
     switch (ConvertCommand(command)) {
-      case kcmd_hello:
+      case HELLO:
         OpeHello(&SendReply);
         break;
-      case kcmd_panic:
+      case PANIC:
         OpePanic(&SendReply);
         break;
-      case kcmd_parroting:
+      case PARROTTING:
         OpeParroting(&SendReply);
         break;
       default:
