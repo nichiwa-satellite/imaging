@@ -15,10 +15,13 @@
 
 CommandType ConvertCommand(CommandDigit* command)
 {
+    CommandDigit    hello[] = {'h','e','l','l','o'};
+    CommandDigit    panic[] = {'p','a','n','i','c'};
+ 
     CommandType cmd_type = 0;
-    if (strcmp((char *)command, "hello")) {
+    if (memcmp(command, hello, sizeof(hello))){
         cmd_type = HELLO;
-    } else if (strcmp((char *)command, "panic")) {
+    } else if (memcmp(command, panic, sizeof(panic))) {
         cmd_type = PANIC;
     } else {
         cmd_type = PARROTTING;
