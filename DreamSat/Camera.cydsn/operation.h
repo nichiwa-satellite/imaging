@@ -12,7 +12,7 @@
 #include <stddef.h>
 #include "common.h"
 
-typedef unsigned char reply_digit;
-typedef StatusCode (*reply_func)(reply_digit*, size_t);
+typedef unsigned char ReplyDigit;
+typedef StatusCode (*reply_func)(ReplyDigit*, size_t);
 
 #endif //DREAMSAT_CAMERA_OPERATION_H_

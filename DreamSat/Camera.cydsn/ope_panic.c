@@ -10,6 +10,6 @@
 
 void OpePanic(reply_func reply)
 {
-    reply_digit replytext[5] = "PANIC";
+    ReplyDigit replytext[5] = "PANIC";
     (*reply)(replytext, sizeof(replytext));
 }

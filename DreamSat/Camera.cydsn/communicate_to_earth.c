@@ -50,7 +50,7 @@ void ReceiveCommand(CommandDigit* command)
     memcpy(command, recv_data_buff, COMMAND_SIZE);
 }
 
-StatusCode SendReply64(reply_digit* reply, size_t reply_size) {
+StatusCode SendReply64(ReplyDigit* reply, size_t reply_size) {
     int i;
     char command[5 + 64 * 2 + 2 + 1] = "TXDA ";
     char* temp = command + 5;
@@ -64,7 +64,7 @@ StatusCode SendReply64(reply_digit* reply, size_t reply_size) {
     return SUCCESS;
 }
 
-StatusCode SendReply(reply_digit* reply, size_t reply_size) {
+StatusCode SendReply(ReplyDigit* reply, size_t reply_size) {
     while (64 < reply_size)
     {
         SendReply64(reply, 64);

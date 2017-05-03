@@ -17,7 +17,7 @@
 
 void ReceiveCommand(CommandDigit*);
 unsigned short ConvertCommand(CommandDigit*);
-StatusCode SendReply(reply_digit*, size_t);
+StatusCode SendReply(ReplyDigit*, size_t);
 void InitializeUartToEarth();
 
 #endif //DREAMSAT_CAMERA_COMMUNICATE_TO_EARTH_H_
