@@ -6,7 +6,8 @@
  * ========================================
 */
 #include "project.h"
-#include "earth.h"
+#include "communicate_to_earth.h"
+#include "initialize.h"
 
 void Initialize()
 {

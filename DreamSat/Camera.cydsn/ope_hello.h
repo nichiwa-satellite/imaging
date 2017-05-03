@@ -11,4 +11,6 @@
 
 #include "operation.h"
 
+void OpeHello(reply_func);
+
 #endif //DREAMSAT_CAMERA_CMD_HELLO_H_

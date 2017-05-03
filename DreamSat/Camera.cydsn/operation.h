@@ -11,12 +11,8 @@
 
 #include <stddef.h>
 #include "common.h"
-    
+
 typedef unsigned char reply_digit;
 typedef rettype (*reply_func)(reply_digit*, size_t);
-
-void OpeHello(reply_func);
-void OpePanic(reply_func);
-void OpeParroting(reply_func);
 
 #endif //DREAMSAT_CAMERA_OPERATION_H_

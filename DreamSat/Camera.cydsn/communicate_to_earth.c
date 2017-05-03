@@ -7,7 +7,7 @@
 */
 #include <stdio.h>
 #include <string.h>
-#include "earth.h"
+#include "communicate_to_earth.h"
 #include "project.h"
 
 #define STX (0x02)

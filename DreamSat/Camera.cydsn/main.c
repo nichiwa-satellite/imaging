@@ -7,8 +7,12 @@
 */
 #include "project.h"
 #include "initialize.h"
-#include "earth.h"
+#include "communicate_to_earth.h"
+
 #include "operation.h"
+#include "ope_hello.h"
+#include "ope_panic.h"
+#include "ope_parroting.h"
 
 int main(void)
 {
