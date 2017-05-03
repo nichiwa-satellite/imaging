@@ -32,7 +32,7 @@ void IsrEarthRx()
     return;
 }
 
-void InitializeCommUart()
+void InitializeUartToEarth()
 {
     UART_TO_EARTH_Init();
     UART_TO_EARTH_Start();

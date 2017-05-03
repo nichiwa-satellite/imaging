@@ -11,7 +11,7 @@
 
 void Initialize()
 {
-    InitializeCommUart();
+    InitializeUartToEarth();
     
     CyGlobalIntEnable;
     
