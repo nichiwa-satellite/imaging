@@ -6,8 +6,8 @@
  * ========================================
 */
 
-#ifndef DREAMSAT_CAMERA_RECEIVE_CMD_H_
-#define DREAMSAT_CAMERA_RECEIVE_CMD_H_
+#ifndef DREAMSAT_CAMERA_COMMUNICATE_TO_EARTH_H_
+#define DREAMSAT_CAMERA_COMMUNICATE_TO_EARTH_H_
 
 #include <stddef.h>
 #include "operation.h"
@@ -20,4 +20,4 @@ unsigned short ConvertCommand(cmd_digit*);
 StatusCode SendReply(reply_digit*, size_t);
 void InitializeUartToEarth();
 
-#endif //DREAMSAT_CAMERA_RECEIVE_CMD_H_
+#endif //DREAMSAT_CAMERA_COMMUNICATE_TO_EARTH_H_
