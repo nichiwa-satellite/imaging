@@ -10,9 +10,10 @@
 #define DREAMSAT_CAMERA_OPERATION_H_
 
 #include <stddef.h>
+#include "project.h"
 #include "common.h"
 
-typedef unsigned char ReplyDigit;
+typedef uint8 ReplyDigit;
 typedef StatusCode (*reply_func)(ReplyDigit*, size_t);
 
 #endif //DREAMSAT_CAMERA_OPERATION_H_

@@ -16,7 +16,7 @@
 #define COMMAND_SIZE (6)
 
 void ReceiveCommand(CommandDigit*);
-unsigned short ConvertCommand(CommandDigit*);
+CommandType ConvertCommand(CommandDigit*);
 StatusCode SendReply(ReplyDigit*, size_t);
 void InitializeUartToEarth();
 

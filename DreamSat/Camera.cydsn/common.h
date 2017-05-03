@@ -9,7 +9,9 @@
 #ifndef DREAMSAT_CAMERA_COMMON_H_
 #define DREAMSAT_CAMERA_COMMON_H_
 
-typedef unsigned char CommandDigit;
+#include "project.h"
+
+typedef uint8 CommandDigit;
 
 typedef enum {
     SUCCESS,

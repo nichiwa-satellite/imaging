@@ -13,9 +13,9 @@
 #include <string.h>
 #include "common.h"
 
-unsigned short ConvertCommand(CommandDigit* command)
+CommandType ConvertCommand(CommandDigit* command)
 {
-    unsigned short cmd_type = 0;
+    CommandType cmd_type = 0;
     if (strcmp((char *)command, "hello")) {
         cmd_type = HELLO;
     } else if (strcmp((char *)command, "panic")) {

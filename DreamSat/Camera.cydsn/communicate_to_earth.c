@@ -12,7 +12,7 @@
 
 #define STX (0x02)
 
-unsigned char recv_data_buff[COMMAND_SIZE];
+uint8 recv_data_buff[COMMAND_SIZE];
 int recv_count = 0;
 int recv_stx_flg = 0;
 
