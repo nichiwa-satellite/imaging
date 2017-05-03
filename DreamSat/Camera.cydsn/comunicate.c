@@ -10,23 +10,19 @@
 #include "comunicate.h"
 #include "project.h"
 
-CY_ISR_PROTO(Comm_Rx_Intr);
-
-#pragma interrupt_handler Comm_Rx_Intr
-
-#define STX_DEF (0x02)
+#define STX (0x02)
 
 unsigned char recv_data_buff[COMMAND_SIZE];
 int recv_count = 0;
 int recv_stx_flg = 0;
 
-void Comm_Rx_Intr()
+void IsrEarthRx()
 {
     unsigned char recv_data;
-    recv_data = UART_TO_COMM_GetChar();
+    recv_data = UART_TO_EARTH_GetChar();
     
     if (!recv_stx_flg) {
-        if (recv_data == STX_DEF) {
+        if (recv_data == STX) {
             recv_stx_flg = 1;
         }
     } else {
@@ -38,18 +34,18 @@ void Comm_Rx_Intr()
 
 void InitializeCommUart()
 {
-    UART_TO_COMM_Init();
-    UART_TO_COMM_Start();
+    UART_TO_EARTH_Init();
+    UART_TO_EARTH_Start();
 
-    Comm_Rx_Intr_StartEx(Comm_Rx_Intr);
+    IsrEarthRx_StartEx(IsrEarthRx);
 }
 
 void ReceiveCommand(cmd_digit* command)
 {
     recv_count = 0;
-    Comm_Rx_Intr_Enable();
+    IsrEarthRx_Enable();
     while (recv_count <= COMMAND_SIZE) {}
-    Comm_Rx_Intr_Disable();
+    IsrEarthRx_Disable();
 
     memcpy(command, recv_data_buff, COMMAND_SIZE);
 }
@@ -64,7 +60,7 @@ rettype SendReply64(reply_digit* reply, size_t reply_size) {
         temp += 2;
     }
     sprintf(temp, "\r\n");
-    UART_TO_COMM_PutString(command);
+    UART_TO_EARTH_PutString(command);
     return ret_success;
 }
 
