@@ -11,7 +11,7 @@
 */
 
 #include <string.h>
-#include "comunicate.h"
+#include "common.h"
 
 unsigned short ConvertCommand(cmd_digit* command)
 {

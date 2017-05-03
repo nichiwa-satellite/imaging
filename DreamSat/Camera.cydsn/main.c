@@ -7,7 +7,7 @@
 */
 #include "project.h"
 #include "initialize.h"
-#include "comunicate.h"
+#include "earth.h"
 #include "operation.h"
 
 int main(void)
