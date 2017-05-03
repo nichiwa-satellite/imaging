@@ -13,6 +13,6 @@
 #include "common.h"
 
 typedef unsigned char reply_digit;
-typedef rettype (*reply_func)(reply_digit*, size_t);
+typedef StatusCode (*reply_func)(reply_digit*, size_t);
 
 #endif //DREAMSAT_CAMERA_OPERATION_H_

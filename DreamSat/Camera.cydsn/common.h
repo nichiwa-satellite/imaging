@@ -11,18 +11,16 @@
 
 typedef unsigned char cmd_digit;
 
-typedef enum rettypetag
-{
-    ret_success,
-    ret_error
-}rettype;
+typedef enum {
+    kstatus_code_success,
+    kstatus_code_error
+}StatusCode;
 
-typedef enum cmdtypetag
-{
-    cmd_hello,
-    cmd_panic,
-    cmd_parroting
-}cmdtype;
+typedef enum {
+    kcmd_hello,
+    kcmd_panic,
+    kcmd_parroting
+}CommandType;
 
 
 #endif //DREAMSAT_CAMERA_COMMON_H_

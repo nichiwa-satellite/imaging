@@ -17,11 +17,11 @@ unsigned short ConvertCommand(cmd_digit* command)
 {
     unsigned short cmd_type = 0;
     if (strcmp((char *)command, "hello")) {
-        cmd_type = cmd_hello;
+        cmd_type = kcmd_hello;
     } else if (strcmp((char *)command, "panic")) {
-        cmd_type = cmd_panic;
+        cmd_type = kcmd_panic;
     } else {
-        cmd_type = cmd_parroting;
+        cmd_type = kcmd_parroting;
     }
     return cmd_type;
 }

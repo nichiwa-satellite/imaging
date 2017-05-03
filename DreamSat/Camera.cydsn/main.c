@@ -23,13 +23,13 @@ int main(void)
     ReceiveCommand(command);
 
     switch (ConvertCommand(command)) {
-      case cmd_hello:
+      case kcmd_hello:
         OpeHello(&SendReply);
         break;
-      case cmd_panic:
+      case kcmd_panic:
         OpePanic(&SendReply);
         break;
-      case cmd_parroting:
+      case kcmd_parroting:
         OpeParroting(&SendReply);
         break;
       default:

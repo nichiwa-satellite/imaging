@@ -50,7 +50,7 @@ void ReceiveCommand(cmd_digit* command)
     memcpy(command, recv_data_buff, COMMAND_SIZE);
 }
 
-rettype SendReply64(reply_digit* reply, size_t reply_size) {
+StatusCode SendReply64(reply_digit* reply, size_t reply_size) {
     int i;
     char command[5 + 64 * 2 + 2 + 1] = "TXDA ";
     char* temp = command + 5;
@@ -61,10 +61,10 @@ rettype SendReply64(reply_digit* reply, size_t reply_size) {
     }
     sprintf(temp, "\r\n");
     UART_TO_EARTH_PutString(command);
-    return ret_success;
+    return kstatus_code_success;
 }
 
-rettype SendReply(reply_digit* reply, size_t reply_size) {
+StatusCode SendReply(reply_digit* reply, size_t reply_size) {
     while (64 < reply_size)
     {
         SendReply64(reply, 64);
@@ -72,5 +72,5 @@ rettype SendReply(reply_digit* reply, size_t reply_size) {
         reply_size -= 64;
     }
     SendReply64(reply, reply_size);
-    return ret_success;   
+    return kstatus_code_success;   
 }
