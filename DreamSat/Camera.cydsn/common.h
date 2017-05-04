@@ -9,8 +9,6 @@
 #ifndef DREAMSAT_CAMERA_COMMON_H_
 #define DREAMSAT_CAMERA_COMMON_H_
 
-#include "project.h"
-
 typedef unsigned char Byte;
 
 typedef enum {

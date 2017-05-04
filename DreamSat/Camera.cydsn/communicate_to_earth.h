@@ -10,7 +10,6 @@
 #define DREAMSAT_CAMERA_COMMUNICATE_TO_EARTH_H_
 
 #include <stddef.h>
-#include "operation.h"
 #include "common.h"
 
 #define COMMAND_SIZE (6)

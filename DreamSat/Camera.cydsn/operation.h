@@ -10,7 +10,6 @@
 #define DREAMSAT_CAMERA_OPERATION_H_
 
 #include <stddef.h>
-#include "project.h"
 #include "common.h"
 
 typedef StatusCode (*reply_func)(Byte*, size_t);
