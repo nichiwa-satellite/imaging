@@ -11,7 +11,7 @@
 */
 
 #include "ope_camerashot.h"
-#include "camera.h"
+#include "communicate_to_camera.h"
 
 /* TODO : Recieve Data SIze */
 #define RECIEVE_DATASIZE    ( 10 )

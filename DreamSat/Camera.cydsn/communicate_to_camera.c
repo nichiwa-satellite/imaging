@@ -10,7 +10,7 @@
  * ========================================
 */
 
-#include "camera.h"
+#include "communicate_to_camera.h"
 #include "project.h"
 
 //define
