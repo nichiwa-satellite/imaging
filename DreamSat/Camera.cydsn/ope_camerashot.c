@@ -25,7 +25,7 @@ void OpeCameraShot()
 
     /* TODO : ERROR PROCESS */
     /* REQUEST CAMERASHOT */
-    (void)SendRequest(request, sizeof(request), recv_buffer, sizeof(recv_buffer));
+    (void)CommunicateToCamera(request, sizeof(request), recv_buffer, sizeof(recv_buffer));
 
     return;
 }

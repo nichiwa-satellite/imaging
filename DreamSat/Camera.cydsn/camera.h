@@ -17,7 +17,7 @@
 #include <stddef.h>
 
 void InitializeCamera();
-StatusCode SendRequest(Byte* request, size_t request_size, Byte *recv_buff, size_t recv_buff_size);
+StatusCode CommunicateToCamera(Byte* request, size_t request_size, Byte *recv_buff, size_t recv_buff_size);
 
 #endif //DREAMSAT_CAMERA_COMMUNICATE_H_
 
