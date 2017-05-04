@@ -15,25 +15,24 @@
 
 //define
 
-#define CAMERA_RECVDATA_HEADER_STEP1     ( 0x80 )
-#define CAMERA_RECVDATA_HEADER_STEP2     ( 0x80 )
+#define CAMERA_RECVDATA_HEADER_STEP1     (0x80)
+#define CAMERA_RECVDATA_HEADER_STEP2     (0x80)
 
-#define CAMERA_RECVDATA_FOOTER_STEP1     ( 0x81 )
-#define CAMERA_RECVDATA_FOOTER_STEP2     ( 0x81 )
+#define CAMERA_RECVDATA_FOOTER_STEP1     (0x81)
+#define CAMERA_RECVDATA_FOOTER_STEP2     (0x81)
 
 //typedef
-typedef enum recievestatetag
-{
-    recv_state_header_step1,
-    recv_state_header_step2,
-    recv_state_body
-} recvstate;
+typedef enum {
+    HEADER_STEP1,
+    HEADER_STEP2,
+    DATA,
+}RecievePhaseCode;
 
 //Variables
 static unsigned char    *camera_buff;
 static unsigned int     camera_buff_size;
 static unsigned int     recv_count;
-recvstate               recv_state;
+RecievePhaseCode        recv_phase;
 
 void IsrCamRx()
 {
@@ -56,33 +55,33 @@ void IsrCamRx()
         return;
     }
 
-    switch (recv_state)
+    switch (recv_phase)
     {
-        case recv_state_header_step1:
+        case HEADER_STEP1:
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP1)
             {
                 return;
             }
             camera_buff[index] = recv_data;
             recv_count++;
-            recv_state++;
+            recv_phase++;
             break;
 
-        case recv_state_header_step2:
+        case HEADER_STEP2:
             /* header check step 2 Try Once */
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP2)
             {
                 recv_count--;
-                recv_state--;
+                recv_phase--;
                 return;
             }
 
             camera_buff[index] = recv_data;
             recv_count++;
-            recv_state++;
+            recv_phase++;
             break;
 
-        case recv_state_body:
+        case DATA:
             camera_buff[index] = recv_data;
             recv_count++;
 
@@ -124,7 +123,7 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_size, Byte *recv_bu
     camera_buff = recv_buff;
     camera_buff_size = recv_buff_size;
     recv_count = 0;
-    recv_state = recv_state_header_step1,
+    recv_phase = HEADER_STEP1,
 
     /* Interrupt Enable */
     IsrCamRx_Enable();
