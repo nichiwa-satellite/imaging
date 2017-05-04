@@ -12,6 +12,7 @@
 #include "operation.h"
 #include "ope_hello.h"
 #include "ope_panic.h"
+#include "ope_camerashot.h"
 #include "ope_parroting.h"
 
 int main(void)
@@ -28,6 +29,9 @@ int main(void)
         break;
       case PANIC:
         OpePanic(&SendToEarth);
+        break;
+      case CAMERASHOT:
+        OpeCameraShot(&SendToEarth);
         break;
       case PARROTTING:
         OpeParroting(&SendToEarth);

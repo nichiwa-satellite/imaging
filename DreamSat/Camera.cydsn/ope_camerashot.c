@@ -16,17 +16,17 @@
 /* TODO : Recieve Data SIze */
 #define RECIEVE_DATASIZE    ( 10 )
 
-void OpeCameraShot()
+void OpeCameraShot(reply_func reply)
 {
     /* TODO : Set Camera Shot Command */
-    Byte request[] = "";
+    Byte request[] = {0x56, 0x00, 0x36, 0x01, 0x00};
     /* TODO : Recieve Buffer */
     unsigned char recv_buffer[RECIEVE_DATASIZE];
 
     /* TODO : ERROR PROCESS */
     /* REQUEST CAMERASHOT */
     (void)CommunicateToCamera(request, sizeof(request), recv_buffer, sizeof(recv_buffer));
-
+    (*reply)(recv_buffer, sizeof(recv_buffer));
     return;
 }
 

@@ -19,6 +19,7 @@ typedef enum {
 typedef enum {
     HELLO,
     PANIC,
+    CAMERASHOT,
     PARROTTING
 }CommandType;
 
