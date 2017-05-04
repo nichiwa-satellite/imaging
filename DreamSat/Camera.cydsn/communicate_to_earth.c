@@ -11,6 +11,10 @@
 #include "project.h"
 
 #define STX (0x02)
+#define SEND_RELPY_HEADER_SIZE (5)
+#define SEND_RELPY_DATA_SIZE (64 * 2)
+#define SEND_RELPY_FOOTER_SIZE (2 + 1)
+#define SEND_REPLY_SIZE (SEND_RELPY_HEADER_SIZE + SEND_RELPY_DATA_SIZE + SEND_RELPY_FOOTER_SIZE)
 
 uint8 recv_data_buff[COMMAND_SIZE];
 int recv_count = 0;
@@ -59,7 +63,7 @@ void RecieveFromEarth(Byte* command)
 
 StatusCode SendToEarth64(Byte* reply, size_t reply_size) {
     int i;
-    char command[5 + 64 * 2 + 2 + 1] = "TXDA ";
+    char command[SEND_REPLY_SIZE] = "TXDA ";
     char* temp = command + 5;
     for (i = 0; (i < (int)reply_size && i < 64); i++)
     {
