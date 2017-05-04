@@ -26,6 +26,9 @@ void IsrEarthRx()
             recv_stx_flg = 1;
         }
     } else {
+        if (COMMAND_SIZE <= recv_count) {
+            return;
+        }
         recv_data_buff[recv_count] = recv_data;
         recv_count++;
     }
