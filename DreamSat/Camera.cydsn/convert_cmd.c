@@ -19,9 +19,9 @@ CommandType ConvertCommand(Byte* command)
     const Byte    kpanic[] = {'p','a','n','i','c'};
  
     CommandType cmd_type = 0;
-    if (memcmp(command, khello, sizeof(khello))){
+    if (memcmp(command, khello, sizeof(khello)) == 0){
         cmd_type = HELLO;
-    } else if (memcmp(command, kpanic, sizeof(kpanic))) {
+    } else if (memcmp(command, kpanic, sizeof(kpanic)) == 0) {
         cmd_type = PANIC;
     } else {
         cmd_type = PARROTTING;
