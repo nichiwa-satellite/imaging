@@ -49,6 +49,7 @@ void InitializeUartToEarth()
 void RecieveFromEarth(Byte* command)
 {
     recv_count = 0;
+    memset(recv_data_buff, 0x00, COMMAND_SIZE);
     IsrEarthRx_Enable();
     while (recv_count <= COMMAND_SIZE) {}
     IsrEarthRx_Disable();
