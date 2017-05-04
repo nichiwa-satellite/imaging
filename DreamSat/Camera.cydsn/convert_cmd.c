@@ -13,10 +13,10 @@
 #include <string.h>
 #include "common.h"
 
-CommandType ConvertCommand(CommandDigit* command)
+CommandType ConvertCommand(Byte* command)
 {
-    CommandDigit    hello[] = {'h','e','l','l','o'};
-    CommandDigit    panic[] = {'p','a','n','i','c'};
+    Byte    hello[] = {'h','e','l','l','o'};
+    Byte    panic[] = {'p','a','n','i','c'};
  
     CommandType cmd_type = 0;
     if (memcmp(command, hello, sizeof(hello))){

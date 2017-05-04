@@ -11,7 +11,7 @@
 
 #include "project.h"
 
-typedef uint8 CommandDigit;
+typedef unsigned char Byte;
 
 typedef enum {
     SUCCESS,

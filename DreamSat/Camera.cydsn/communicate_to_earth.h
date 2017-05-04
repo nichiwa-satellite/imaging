@@ -15,9 +15,9 @@
 
 #define COMMAND_SIZE (6)
 
-void ReceiveCommand(CommandDigit*);
-CommandType ConvertCommand(CommandDigit*);
-StatusCode SendReply(ReplyDigit*, size_t);
+void RecieveFromEarth(Byte*);
+CommandType ConvertCommand(Byte*);
+StatusCode SendToEarth(Byte*, size_t);
 void InitializeUartToEarth();
 
 #endif //DREAMSAT_CAMERA_COMMUNICATE_TO_EARTH_H_

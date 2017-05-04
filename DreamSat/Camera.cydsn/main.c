@@ -16,7 +16,7 @@
 
 int main(void)
 {
-    CommandDigit command[COMMAND_SIZE] = {0};
+    Byte command[COMMAND_SIZE] = {0};
 
     Initialize();
 

@@ -10,6 +10,6 @@
 
 void OpeParroting(reply_func reply)
 {
-    ReplyDigit replytext[6] = "PARROT";
+    Byte replytext[6] = "PARROT";
     (*reply)(replytext, sizeof(replytext));
 }

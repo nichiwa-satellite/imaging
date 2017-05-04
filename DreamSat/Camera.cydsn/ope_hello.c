@@ -10,6 +10,6 @@
 
 void OpeHello(reply_func reply)
 {
-    ReplyDigit replytext[5] = "HELLO";
+    Byte replytext[5] = "HELLO";
     (*reply)(replytext, sizeof(replytext));
 }
