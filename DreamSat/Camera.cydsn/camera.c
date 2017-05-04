@@ -93,7 +93,7 @@ void IsrCamRx()
     return;
 }
 
-void Camera_Initialize()
+void InitializeCamera()
 {
     /* UART Device Init */
     UART_TO_CAMERA_Init();
