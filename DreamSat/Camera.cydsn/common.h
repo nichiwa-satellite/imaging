@@ -9,19 +9,18 @@
 #ifndef DREAMSAT_CAMERA_COMMON_H_
 #define DREAMSAT_CAMERA_COMMON_H_
 
-typedef unsigned char cmd_digit;
+typedef unsigned char Byte;
 
-typedef enum rettypetag
-{
-    ret_success,
-    ret_error
-}rettype;
+typedef enum {
+    SUCCESS,
+    ERROR
+}StatusCode;
 
-typedef enum cmdtypetag
-{
-    cmd_hello,
-    cmd_panic,
-    cmd_parroting
-}cmdtype;
+typedef enum {
+    HELLO,
+    PANIC,
+    PARROTTING
+}CommandType;
+
 
 #endif //DREAMSAT_CAMERA_COMMON_H_

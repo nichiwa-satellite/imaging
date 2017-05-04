@@ -7,26 +7,30 @@
 */
 #include "project.h"
 #include "initialize.h"
-#include "comunicate.h"
+#include "communicate_to_earth.h"
+
 #include "operation.h"
+#include "ope_hello.h"
+#include "ope_panic.h"
+#include "ope_parroting.h"
 
 int main(void)
 {
-    cmd_digit command[COMMAND_SIZE] = {0};
+    Byte command[COMMAND_SIZE] = {0};
 
     Initialize();
 
-    ReceiveCommand(command);
+    RecieveFromEarth(command);
 
     switch (ConvertCommand(command)) {
-      case cmd_hello:
-        OpeHello(&SendReply);
+      case HELLO:
+        OpeHello(&SendToEarth);
         break;
-      case cmd_panic:
-//        OpePanic();
+      case PANIC:
+        OpePanic(&SendToEarth);
         break;
-      case cmd_parroting:
-//        OpeParroting();
+      case PARROTTING:
+        OpeParroting(&SendToEarth);
         break;
       default:
         break;

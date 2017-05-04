@@ -5,8 +5,14 @@
  *
  * ========================================
 */
+#include "project.h"
+#include "communicate_to_earth.h"
+#include "initialize.h"
 
 void Initialize()
 {
-
+    InitializeUartToEarth();
+    
+    CyGlobalIntEnable;
+    
 }

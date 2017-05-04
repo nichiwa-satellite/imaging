@@ -10,12 +10,8 @@
 #define DREAMSAT_CAMERA_OPERATION_H_
 
 #include <stddef.h>
+#include "common.h"
 
-typedef unsigned char reply_digit;
-typedef int (*reply_func)(reply_digit*, size_t);
-
-void OpeHello(reply_func);
-void OpePanic(reply_func);
-void OpeParroting(reply_func);
+typedef StatusCode (*reply_func)(Byte*, size_t);
 
 #endif //DREAMSAT_CAMERA_OPERATION_H_
