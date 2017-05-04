@@ -36,15 +36,10 @@ RecievePhaseCode    recv_phase;
 
 void IsrCamRx()
 {
-    size_t index;
-    Byte recv_data;
+    size_t index = recv_count;
+    Byte recv_data = UART_TO_CAMERA_GetChar();
 
-    /* 1 byte Data Read From UART */
-    recv_data = UART_TO_CAMERA_GetChar();
-
-    /* Set Index */
-    index = recv_count;
-    
+ 
     /* Parameter Check */
     if (camera_buff == NULL) {
         return;
@@ -55,28 +50,24 @@ void IsrCamRx()
         return;
     }
 
-    switch (recv_phase)
-    {
+    switch (recv_phase) {
         case HEADER_STEP1:
-            if (recv_data != CAMERA_RECVDATA_HEADER_STEP1)
-            {
+            if (recv_data != CAMERA_RECVDATA_HEADER_STEP1) {
                 return;
             }
-            camera_buff[index] = recv_data;
+            camera_buff[index] = CAMERA_RECVDATA_HEADER_STEP1;
             recv_count++;
             recv_phase++;
             break;
 
         case HEADER_STEP2:
             /* header check step 2 Try Once */
-            if (recv_data != CAMERA_RECVDATA_HEADER_STEP2)
-            {
+            if (recv_data != CAMERA_RECVDATA_HEADER_STEP2) {
                 recv_count--;
                 recv_phase--;
                 return;
             }
-
-            camera_buff[index] = recv_data;
+            camera_buff[index] = CAMERA_RECVDATA_HEADER_STEP2;
             recv_count++;
             recv_phase++;
             break;
