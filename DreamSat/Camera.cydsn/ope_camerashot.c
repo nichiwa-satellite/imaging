@@ -19,7 +19,7 @@
 void OpeCameraShot()
 {
     /* TODO : Set Camera Shot Command */
-    request_digit request[] = "";
+    Byte request[] = "";
     /* TODO : Recieve Buffer */
     unsigned char recv_buffer[RECIEVE_DATASIZE];
 

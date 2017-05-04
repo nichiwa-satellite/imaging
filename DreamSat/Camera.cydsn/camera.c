@@ -29,70 +29,13 @@ typedef enum recievestatetag
     recv_state_body
 } recvstate;
 
-//Prototypes
-CY_ISR_PROTO(Cam_Rx_Intr);
-
 //Variables
 static unsigned char    *camera_buff;
 static unsigned int     camera_buff_size;
 static unsigned int     recv_count;
 recvstate               recv_state;
 
-void Camera_Initialize()
-{
-    /* UART Device Init */
-    UART_TO_CAMERA_Init();
-    UART_TO_CAMERA_Start();
-
-    /* Interrupt Init */
-    Cam_Rx_Intr_StartEx(Cam_Rx_Intr );
-
-    /* Interrupt Disable */
-    Cam_Rx_Intr_Disable();
-
-    return;
-}
-
-rettype SendRequest(request_digit* request, size_t request_size, unsigned char *recv_buff, unsigned int recv_buff_size)
-{
-    /* Parameter Check */
-    if (recv_buff == NULL) {
-        return ret_error;    
-    }
-
-    /* Parameter Check */
-    if (recv_buff_size == 0) {
-        return ret_error;
-    }
-
-    /* Recieve Setup */
-    camera_buff = recv_buff;
-    camera_buff_size = recv_buff_size;
-    recv_count = 0;
-    recv_state = recv_state_header_step1,
-
-    /* Interrupt Enable */
-    Cam_Rx_Intr_Enable();
-
-    /* Send Request */
-    UART_TO_CAMERA_PutArray(request, request_size);
-
-    /* Recieve Complete Wait */
-    while (1) {
-        /* TODO : TIMEOUT */
-        if (camera_buff_size <= recv_count) {
-            /* Interrupt Disanable */
-            Cam_Rx_Intr_Disable();
-            break;
-        }
-    }
-
-    return ret_success;
-}
-
-#pragma interrupt_handler Cam_Rx_Intr
-
-void Cam_Rx_Intr()
+void IsrCamRx()
 {
     unsigned int index;
     unsigned char recv_data;
@@ -148,6 +91,58 @@ void Cam_Rx_Intr()
     }
 
     return;
+}
+
+void Camera_Initialize()
+{
+    /* UART Device Init */
+    UART_TO_CAMERA_Init();
+    UART_TO_CAMERA_Start();
+
+    /* Interrupt Init */
+    IsrCamRx_StartEx(IsrCamRx );
+
+    /* Interrupt Disable */
+    IsrCamRx_Disable();
+
+    return;
+}
+
+StatusCode SendRequest(Byte* request, size_t request_size, Byte *recv_buff, size_t recv_buff_size)
+{
+    /* Parameter Check */
+    if (recv_buff == NULL) {
+        return ERROR;    
+    }
+
+    /* Parameter Check */
+    if (recv_buff_size == 0) {
+        return ERROR;
+    }
+
+    /* Recieve Setup */
+    camera_buff = recv_buff;
+    camera_buff_size = recv_buff_size;
+    recv_count = 0;
+    recv_state = recv_state_header_step1,
+
+    /* Interrupt Enable */
+    IsrCamRx_Enable();
+
+    /* Send Request */
+    UART_TO_CAMERA_PutArray(request, request_size);
+
+    /* Recieve Complete Wait */
+    while (1) {
+        /* TODO : TIMEOUT */
+        if (camera_buff_size <= recv_count) {
+            /* Interrupt Disanable */
+            IsrCamRx_Disable();
+            break;
+        }
+    }
+
+    return SUCCESS;
 }
 
 /* [] END OF FILE */
