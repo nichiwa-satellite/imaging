@@ -29,7 +29,9 @@ void IsrEarthRx()
         if (recv_count <= COMMAND_SIZE) {
             recv_data_buff[recv_count] = recv_data;
         } else if (recv_count == COMMAND_SIZE + 1) {
-            //TODO : CHECK Digit
+            //TODO : Store Check Digit (BCC)
+        } else {
+            return;
         }
         recv_count++;
     }
