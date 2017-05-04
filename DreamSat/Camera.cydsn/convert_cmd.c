@@ -15,13 +15,13 @@
 
 CommandType ConvertCommand(Byte* command)
 {
-    Byte    hello[] = {'h','e','l','l','o'};
-    Byte    panic[] = {'p','a','n','i','c'};
+    const Byte    khello[] = {'h','e','l','l','o'};
+    const Byte    kpanic[] = {'p','a','n','i','c'};
  
     CommandType cmd_type = 0;
-    if (memcmp(command, hello, sizeof(hello))){
+    if (memcmp(command, khello, sizeof(khello))){
         cmd_type = HELLO;
-    } else if (memcmp(command, panic, sizeof(panic))) {
+    } else if (memcmp(command, kpanic, sizeof(kpanic))) {
         cmd_type = PANIC;
     } else {
         cmd_type = PARROTTING;
