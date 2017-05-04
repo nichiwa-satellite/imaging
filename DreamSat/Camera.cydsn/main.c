@@ -20,17 +20,17 @@ int main(void)
 
     Initialize();
 
-    ReceiveCommand(command);
+    RecieveFromEarth(command);
 
     switch (ConvertCommand(command)) {
       case HELLO:
-        OpeHello(&SendReply);
+        OpeHello(&SendToEarth);
         break;
       case PANIC:
-        OpePanic(&SendReply);
+        OpePanic(&SendToEarth);
         break;
       case PARROTTING:
-        OpeParroting(&SendReply);
+        OpeParroting(&SendToEarth);
         break;
       default:
         break;

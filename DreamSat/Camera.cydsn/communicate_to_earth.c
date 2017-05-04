@@ -40,7 +40,7 @@ void InitializeUartToEarth()
     IsrEarthRx_StartEx(IsrEarthRx);
 }
 
-void ReceiveCommand(CommandDigit* command)
+void RecieveFromEarth(CommandDigit* command)
 {
     recv_count = 0;
     IsrEarthRx_Enable();
@@ -50,7 +50,7 @@ void ReceiveCommand(CommandDigit* command)
     memcpy(command, recv_data_buff, COMMAND_SIZE);
 }
 
-StatusCode SendReply64(ReplyDigit* reply, size_t reply_size) {
+StatusCode SendToEarth64(ReplyDigit* reply, size_t reply_size) {
     int i;
     char command[5 + 64 * 2 + 2 + 1] = "TXDA ";
     char* temp = command + 5;
@@ -64,13 +64,13 @@ StatusCode SendReply64(ReplyDigit* reply, size_t reply_size) {
     return SUCCESS;
 }
 
-StatusCode SendReply(ReplyDigit* reply, size_t reply_size) {
+StatusCode SendToEarth(ReplyDigit* reply, size_t reply_size) {
     while (64 < reply_size)
     {
-        SendReply64(reply, 64);
+        SendToEarth64(reply, 64);
         reply += 64;
         reply_size -= 64;
     }
-    SendReply64(reply, reply_size);
+    SendToEarth64(reply, reply_size);
     return SUCCESS;   
 }
