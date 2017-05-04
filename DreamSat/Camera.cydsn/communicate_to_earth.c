@@ -26,10 +26,11 @@ void IsrEarthRx()
             recv_stx_flg = 1;
         }
     } else {
-        if (COMMAND_SIZE <= recv_count) {
-            return;
+        if (recv_count <= COMMAND_SIZE) {
+            recv_data_buff[recv_count] = recv_data;
+        } else if (recv_count == COMMAND_SIZE + 1) {
+            //TODO : CHECK Digit
         }
-        recv_data_buff[recv_count] = recv_data;
         recv_count++;
     }
     return;
