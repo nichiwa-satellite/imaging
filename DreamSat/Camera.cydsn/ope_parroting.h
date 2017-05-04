@@ -11,5 +11,6 @@
 
 #include "operation.h"
 
+void OpeParroting(reply_func);
 
 #endif //DREAMSAT_CAMERA_CMD_PARROTING_H_

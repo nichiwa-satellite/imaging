@@ -11,5 +11,6 @@
 
 #include "operation.h"
 
+void OpePanic(reply_func);
 
 #endif //DREAMSAT_CAMERA_CMD_PANIC_H_
