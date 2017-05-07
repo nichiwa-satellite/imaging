@@ -54,20 +54,15 @@ void IsrCamRx()
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP1) {
                 return;
             }
-            camera_buff[recv_count] = CAMERA_RECVDATA_HEADER_STEP1;
-            recv_count++;
             recv_phase++;
             break;
 
         case HEADER_STEP2:
             /* header check step 2 Try Once */
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP2) {
-                recv_count--;
                 recv_phase--;
                 return;
             }
-            camera_buff[recv_count] = CAMERA_RECVDATA_HEADER_STEP2;
-            recv_count++;
             recv_phase++;
             break;
 
