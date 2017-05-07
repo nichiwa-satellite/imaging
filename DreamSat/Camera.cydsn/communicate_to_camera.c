@@ -60,7 +60,7 @@ void IsrCamRx()
         case HEADER_STEP2:
             /* header check step 2 Try Once */
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP2) {
-                recv_phase--;
+                recv_phase = HEADER_STEP1;
                 return;
             }
             recv_phase++;
