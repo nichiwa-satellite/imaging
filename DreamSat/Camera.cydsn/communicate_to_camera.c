@@ -30,7 +30,7 @@ typedef enum {
 
 //Variables
 static Byte*            camera_buff;
-static size_t           camera_buff_size;
+static size_t           camera_buff_length;
 static unsigned long    recv_count;
 RecievePhaseCode        recv_phase;
 
@@ -46,7 +46,7 @@ void IsrCamRx()
     }
 
     /* Buffer Overflow */
-    if (camera_buff_size <= recv_count) {
+    if (camera_buff_length <= recv_count) {
         return;
     }
 
@@ -96,7 +96,7 @@ void InitializeCamera()
     return;
 }
 
-StatusCode CommunicateToCamera(Byte* request, size_t request_size, Byte *recv_buff, size_t recv_buff_size)
+StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_buff, size_t recv_buff_length)
 {
     /* Parameter Check */
     if (recv_buff == NULL) {
@@ -104,13 +104,13 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_size, Byte *recv_bu
     }
 
     /* Parameter Check */
-    if (recv_buff_size == 0) {
+    if (recv_buff_length == 0) {
         return ERROR;
     }
 
     /* Recieve Setup */
     camera_buff = recv_buff;
-    camera_buff_size = recv_buff_size;
+    camera_buff_length = recv_buff_length;
     recv_count = 0;
     recv_phase = HEADER_STEP1,
 
@@ -118,12 +118,12 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_size, Byte *recv_bu
     IsrCamRx_Enable();
 
     /* Send Request */
-    UART_TO_CAMERA_PutArray(request, request_size);
+    UART_TO_CAMERA_PutArray(request, request_length);
 
     /* Recieve Complete Wait */
     while (1) {
         /* TODO : TIMEOUT */
-        if (camera_buff_size <= recv_count) {
+        if (camera_buff_length <= recv_count) {
             /* Interrupt Disanable */
             IsrCamRx_Disable();
             break;
