@@ -75,8 +75,6 @@ void IsrCamRx()
         case DATA:
             camera_buff[index] = recv_data;
             recv_count++;
-
-        default:
             break;
     }
 
