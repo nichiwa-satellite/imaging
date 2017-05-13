@@ -38,6 +38,7 @@ static size_t           recv_length;
 static uint16           recv_data_length;
 static uint16           remaining_packet_count;
 static RecievePhaseCode recv_phase;
+static StatusCode       recv_result;
 
 void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
@@ -98,10 +99,16 @@ void IsrCamRx() {
             break;
 
         case ETX1:
+            if (recv_data != CAMERA_RECVDATA_FOOTER_STEP1) {
+                recv_result = ERROR;
+            }
             ++recv_phase;
             break;
 
         case ETX2:
+            if (recv_data != CAMERA_RECVDATA_FOOTER_STEP2) {
+                recv_result = ERROR;
+            }
             ++recv_phase;
             break;
 
@@ -127,6 +134,8 @@ void InitializeCamera() {
 }
 
 StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_buff, size_t recv_buff_length) {
+    StatusCode ret;
+
     //Parameter Check
     if (recv_buff == NULL) {
         return ERROR;    
@@ -144,6 +153,7 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
     recv_data_length = 0;
     remaining_packet_count = 0;
     recv_phase = STX1;
+    recv_result = SUCCESS;
 
     //Interrupt Enable
     IsrCamRx_Enable();
@@ -157,7 +167,9 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
         IsrCamRx_Disable();
     }
 
-    return SUCCESS;
+    ret = recv_result;
+
+    return ret;
 }
 
 /* [] END OF FILE */
