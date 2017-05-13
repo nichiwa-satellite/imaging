@@ -11,11 +11,11 @@
 
 //define
 
-#define CAMERA_RECVDATA_HEADER_STEP1     (0x80)
-#define CAMERA_RECVDATA_HEADER_STEP2     (0x80)
+#define CAMERA_RECVDATA_STX1     (0x80)
+#define CAMERA_RECVDATA_STX2     (0x80)
 
-#define CAMERA_RECVDATA_FOOTER_STEP1     (0x81)
-#define CAMERA_RECVDATA_FOOTER_STEP2     (0x81)
+#define CAMERA_RECVDATA_ETX1     (0x81)
+#define CAMERA_RECVDATA_ETX2     (0x81)
 
 //typedef
 typedef enum {
@@ -55,7 +55,7 @@ void IsrCamRx() {
 
     switch (recv_phase) {
         case STX1:
-            if (recv_data != CAMERA_RECVDATA_HEADER_STEP1) {
+            if (recv_data != CAMERA_RECVDATA_STX1) {
                 return;
             }
             ++recv_phase;
@@ -63,7 +63,7 @@ void IsrCamRx() {
 
         case STX2:
             //STX2 Try Once
-            if (recv_data != CAMERA_RECVDATA_HEADER_STEP2) {
+            if (recv_data != CAMERA_RECVDATA_STX2) {
                 recv_phase = STX1;
                 return;
             }
@@ -99,14 +99,14 @@ void IsrCamRx() {
             break;
 
         case ETX1:
-            if (recv_data != CAMERA_RECVDATA_FOOTER_STEP1) {
+            if (recv_data != CAMERA_RECVDATA_ETX1) {
                 recv_result = ERROR;
             }
             ++recv_phase;
             break;
 
         case ETX2:
-            if (recv_data != CAMERA_RECVDATA_FOOTER_STEP2) {
+            if (recv_data != CAMERA_RECVDATA_ETX2) {
                 recv_result = ERROR;
             }
             ++recv_phase;
