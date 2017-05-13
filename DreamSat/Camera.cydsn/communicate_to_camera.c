@@ -40,8 +40,7 @@ static uint16           remaining_packet_count;
 static RecievePhaseCode recv_phase;
 static StatusCode       recv_result;
 
-static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length)
-{
+static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length) {
     camera_buff = recv_buff;
     camera_buff_length = recv_buff_length;
     recv_length = 0;
@@ -54,8 +53,7 @@ static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length)
     return;
 }
 
-static void SendRequest(Byte* request, size_t request_length)
-{
+static void SendRequest(Byte* request, size_t request_length) {
     UART_TO_CAMERA_PutArray(request, request_length);
     return;
 }
@@ -139,16 +137,14 @@ void IsrCamRx() {
     return;
 }
 
-static void WaitRecieveComplete()
-{
+static void WaitRecieveComplete() {
     while (recv_phase != COMPLETE) {
         //TODO : TIMEOUT
     }
     return;
 }
 
-static void CloseCameraRx()
-{
+static void CloseCameraRx() {
     IsrCamRx_Disable();
     return;
 }
