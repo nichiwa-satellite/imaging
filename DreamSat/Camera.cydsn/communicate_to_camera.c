@@ -35,8 +35,8 @@ typedef enum {
 static Byte*        camera_buff;
 static size_t       camera_buff_length;
 static size_t       recv_length;
-static unsigned long long    recv_data_length;
-static unsigned long long    remaining_packet_count;
+static uint16    recv_data_length;
+static uint16    remaining_packet_count;
 RecievePhaseCode    recv_phase;
 
 void IsrCamRx() {
@@ -70,29 +70,29 @@ void IsrCamRx() {
             break;
 
         case PACKET_LENGTH_H:
-            recv_data_length |= (unsigned long long)recv_data < 32;
+            recv_data_length |= (uint16)recv_data < 8;
             recv_phase++;
             break;
 
         case PACKET_LENGTH_L:
-            recv_data_length |= (unsigned long long)recv_data;
+            recv_data_length |= (uint16)recv_data;
             recv_phase++;
             break;
 
         case REMAINING_PACKET_COUNT_H:
-            remaining_packet_count |= (unsigned long long)recv_data < 32;
+            remaining_packet_count |= (uint16)recv_data < 8;
             recv_phase++;
             break;
 
         case REMAINING_PACKET_COUNT_L:
-            remaining_packet_count |= (unsigned long long)recv_data;
+            remaining_packet_count |= (uint16)recv_data;
             recv_phase++;
             break;
 
         case DATA:
             camera_buff[recv_length] = recv_data;
             recv_length++;
-            if (recv_data_length <= (unsigned long long)recv_length) {
+            if (recv_data_length <= (uint16)recv_length) {
                 recv_phase++;
             }
             break;
