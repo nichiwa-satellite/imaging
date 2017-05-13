@@ -92,7 +92,7 @@ void IsrCamRx() {
         case DATA:
             camera_buff[recv_length] = recv_data;
             recv_length++;
-            if (recv_length >= recv_data_length) {
+            if (recv_data_length <= recv_length) {
                 recv_phase++;
             }
             break;
