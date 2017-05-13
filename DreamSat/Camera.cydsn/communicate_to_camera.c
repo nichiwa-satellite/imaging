@@ -49,7 +49,7 @@ static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length) {
     recv_phase = STX1;
     recv_result = SUCCESS;
 
-    IsrCamRx_Enable();
+    IsrCameraRx_Enable();
     return;
 }
 
@@ -58,7 +58,7 @@ static void SendRequest(Byte* request, size_t request_length) {
     return;
 }
 
-void IsrCamRx() {
+void IsrCameraRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
 
     //NullPointer Check
@@ -145,7 +145,7 @@ static void WaitRecieveComplete() {
 }
 
 static void CloseCameraRx() {
-    IsrCamRx_Disable();
+    IsrCameraRx_Disable();
     return;
 }
 
@@ -155,10 +155,10 @@ void InitializeCamera() {
     UART_TO_CAMERA_Start();
 
     // Interrupt Init
-    IsrCamRx_StartEx(IsrCamRx );
+    IsrCameraRx_StartEx(IsrCameraRx );
 
     //Interrupt Disable
-    IsrCamRx_Disable();
+    IsrCameraRx_Disable();
 
     return;
 }
