@@ -43,7 +43,7 @@ static StatusCode       recv_result;
 void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
  
-    //Parameter Check
+    //NullPointer Check
     if (camera_buff == NULL) {
         return;
     }
@@ -62,7 +62,7 @@ void IsrCamRx() {
             break;
 
         case STX2:
-            //header check step 2 Try Once
+            //STX2 Try Once
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP2) {
                 recv_phase = STX1;
                 return;
