@@ -34,8 +34,7 @@ static size_t       camera_buff_length;
 static size_t       recv_count;
 RecievePhaseCode    recv_phase;
 
-void IsrCamRx()
-{
+void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
 
  
@@ -75,8 +74,7 @@ void IsrCamRx()
     return;
 }
 
-void InitializeCamera()
-{
+void InitializeCamera() {
     /* UART Device Init */
     UART_TO_CAMERA_Init();
     UART_TO_CAMERA_Start();
@@ -90,8 +88,7 @@ void InitializeCamera()
     return;
 }
 
-StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_buff, size_t recv_buff_length)
-{
+StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_buff, size_t recv_buff_length) {
     /* Parameter Check */
     if (recv_buff == NULL) {
         return ERROR;    

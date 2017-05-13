@@ -16,8 +16,7 @@
 /* TODO : Recieve Data SIze */
 #define RECIEVE_DATASIZE    ( 5 )
 
-void OpeCameraShot(reply_func reply)
-{
+void OpeCameraShot(reply_func reply) {
     /* TODO : Set Camera Shot Command */
     Byte request[] = {0x56, 0x00, 0x36, 0x01, 0x00};
     /* TODO : Recieve Buffer */
