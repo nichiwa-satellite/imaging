@@ -35,8 +35,8 @@ typedef enum {
 static Byte*        camera_buff;
 static size_t       camera_buff_length;
 static size_t       recv_length;
-static long long    recv_data_length;
-static long long    remaining_packet_count;
+static unsigned long long    recv_data_length;
+static unsigned long long    remaining_packet_count;
 RecievePhaseCode    recv_phase;
 
 void IsrCamRx() {
