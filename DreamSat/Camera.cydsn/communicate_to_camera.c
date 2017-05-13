@@ -134,7 +134,6 @@ void InitializeCamera() {
 }
 
 StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_buff, size_t recv_buff_length) {
-    StatusCode ret;
 
     //Parameter Check
     if (recv_buff == NULL) {
@@ -166,9 +165,8 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
         //TODO : TIMEOUT
     }
     IsrCamRx_Disable();
-    ret = recv_result;
 
-    return ret;
+    return recv_result;
 }
 
 /* [] END OF FILE */
