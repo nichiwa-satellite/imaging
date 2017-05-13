@@ -41,7 +41,6 @@ RecievePhaseCode    recv_phase;
 
 void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
-
  
     //Parameter Check
     if (camera_buff == NULL) {
