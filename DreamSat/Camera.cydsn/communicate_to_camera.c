@@ -32,12 +32,12 @@ typedef enum {
 }RecievePhaseCode;
 
 //Variables
-static Byte*        camera_buff;
-static size_t       camera_buff_length;
-static size_t       recv_length;
-static uint16    recv_data_length;
-static uint16    remaining_packet_count;
-RecievePhaseCode    recv_phase;
+static Byte*            camera_buff;
+static size_t           camera_buff_length;
+static size_t           recv_length;
+static uint16           recv_data_length;
+static uint16           remaining_packet_count;
+static RecievePhaseCode recv_phase;
 
 void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
