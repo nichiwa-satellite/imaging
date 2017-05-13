@@ -14,11 +14,11 @@
 #include "communicate_to_camera.h"
 
 /* TODO : Recieve Data SIze */
-#define RECIEVE_DATASIZE    ( 5 )
+#define RECIEVE_DATASIZE    ( 256 * 256 )
 
 void OpeCameraShot(reply_func reply) {
     /* TODO : Set Camera Shot Command */
-    Byte request[] = {0x56, 0x00, 0x36, 0x01, 0x00};
+    Byte request[] = {0x80,0x80,0x00,0x09,0x81,0x81,0xF2,0x00,0x00,0x00,0x00,0xA4,0x00,0x81,0x81};
     /* TODO : Recieve Buffer */
     unsigned char recv_buffer[RECIEVE_DATASIZE];
 
