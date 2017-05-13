@@ -40,9 +40,29 @@ static uint16           remaining_packet_count;
 static RecievePhaseCode recv_phase;
 static StatusCode       recv_result;
 
+static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length)
+{
+    camera_buff = recv_buff;
+    camera_buff_length = recv_buff_length;
+    recv_length = 0;
+    recv_data_length = 0;
+    remaining_packet_count = 0;
+    recv_phase = STX1;
+    recv_result = SUCCESS;
+
+    IsrCamRx_Enable();
+    return;
+}
+
+static void SendRequest(Byte* request, size_t request_length)
+{
+    UART_TO_CAMERA_PutArray(request, request_length);
+    return;
+}
+
 void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
- 
+
     //NullPointer Check
     if (camera_buff == NULL) {
         return;
@@ -119,6 +139,20 @@ void IsrCamRx() {
     return;
 }
 
+static void WaitRecieveComplete()
+{
+    while (recv_phase != COMPLETE) {
+        //TODO : TIMEOUT
+    }
+    return;
+}
+
+static void CloseCameraRx()
+{
+    IsrCamRx_Disable();
+    return;
+}
+
 void InitializeCamera() {
     //UART Device Init
     UART_TO_CAMERA_Init();
@@ -145,26 +179,10 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
         return ERROR;
     }
 
-    //Recieve Setup
-    camera_buff = recv_buff;
-    camera_buff_length = recv_buff_length;
-    recv_length = 0;
-    recv_data_length = 0;
-    remaining_packet_count = 0;
-    recv_phase = STX1;
-    recv_result = SUCCESS;
-
-    //Interrupt Enable
-    IsrCamRx_Enable();
-
-    //Send Request
-    UART_TO_CAMERA_PutArray(request, request_length);
-
-    //Recieve Complete Wait
-    while (recv_phase != COMPLETE) {
-        //TODO : TIMEOUT
-    }
-    IsrCamRx_Disable();
+    OpenCameraRx(recv_buff,recv_buff_length);
+    SendRequest(request,request_length);
+    WaitRecieveComplete();
+    CloseCameraRx();
 
     return recv_result;
 }
