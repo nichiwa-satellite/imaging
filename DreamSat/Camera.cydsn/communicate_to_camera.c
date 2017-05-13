@@ -164,9 +164,8 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
     //Recieve Complete Wait
     while (recv_phase != COMPLETE) {
         //TODO : TIMEOUT
-        IsrCamRx_Disable();
     }
-
+    IsrCamRx_Disable();
     ret = recv_result;
 
     return ret;
