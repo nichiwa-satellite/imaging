@@ -67,7 +67,18 @@ void IsrCamRx() {
             }
             recv_phase++;
             break;
+        case PACKET_LENGTH_H:
+            break;
 
+        case PACKET_LENGTH_L:
+            break;
+            
+        case REMAINING_PACKET_COUNT_H:
+            break;
+
+        case REMAINING_PACKET_COUNT_L:
+            break;
+            
         case DATA:
             camera_buff[recv_count] = recv_data;
             recv_count++;
@@ -77,6 +88,9 @@ void IsrCamRx() {
             break;
 
         case ETX2:
+            break;
+            
+        case COMPLETE:
             break;
     }
 
