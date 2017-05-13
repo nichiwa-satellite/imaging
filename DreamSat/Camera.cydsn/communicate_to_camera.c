@@ -70,22 +70,22 @@ void IsrCamRx() {
             break;
 
         case PACKET_LENGTH_H:
-            recv_data_length |= (long long)(recv_data < 32);
+            recv_data_length |= (unsigned long long)(recv_data < 32);
             recv_phase++;
             break;
 
         case PACKET_LENGTH_L:
-            recv_data_length |= (long long)recv_data;
+            recv_data_length |= (unsigned long long)recv_data;
             recv_phase++;
             break;
 
         case REMAINING_PACKET_COUNT_H:
-            remaining_packet_count |= (long long)(recv_data < 32);
+            remaining_packet_count |= (unsigned long long)(recv_data < 32);
             recv_phase++;
             break;
 
         case REMAINING_PACKET_COUNT_L:
-            remaining_packet_count |= (long long)recv_data;
+            remaining_packet_count |= (unsigned long long)recv_data;
             recv_phase++;
             break;
 
