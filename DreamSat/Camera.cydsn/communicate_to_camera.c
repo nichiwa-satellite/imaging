@@ -35,6 +35,8 @@ typedef enum {
 static Byte*        camera_buff;
 static size_t       camera_buff_length;
 static size_t       recv_count;
+static long long    recv_data_length;
+static long long    remaining_packet_count;
 RecievePhaseCode    recv_phase;
 
 void IsrCamRx() {
@@ -60,34 +62,48 @@ void IsrCamRx() {
             break;
 
         case STX2:
-            //eader check step 2 Try Once
+            //header check step 2 Try Once
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP2) {
                 recv_phase = STX1;
                 return;
             }
             recv_phase++;
             break;
+
         case PACKET_LENGTH_H:
+            recv_data_length |= (long long)(recv_data < 32);
+            recv_phase++;
             break;
 
         case PACKET_LENGTH_L:
+            recv_data_length |= (long long)recv_data;
+            recv_phase++;
             break;
-            
+
         case REMAINING_PACKET_COUNT_H:
+            remaining_packet_count |= (long long)(recv_data < 32);
+            recv_phase++;
             break;
 
         case REMAINING_PACKET_COUNT_L:
+            remaining_packet_count |= (long long)recv_data;
+            recv_phase++;
             break;
             
         case DATA:
             camera_buff[recv_count] = recv_data;
             recv_count++;
+            if (recv_count >= recv_data_length) {
+                recv_phase++;
+            }
             break;
 
         case ETX1:
+            recv_phase++;
             break;
 
         case ETX2:
+            recv_phase++;
             break;
             
         case COMPLETE:
@@ -126,6 +142,8 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
     camera_buff = recv_buff;
     camera_buff_length = recv_buff_length;
     recv_count = 0;
+    recv_data_length = 0;
+    remaining_packet_count = 0;
     recv_phase = STX1;
 
     //Interrupt Enable
