@@ -71,7 +71,7 @@ void IsrCamRx() {
             break;
 
         case PACKET_LENGTH_H:
-            recv_data_length |= (uint16)recv_data < 8;
+            recv_data_length = (uint16)recv_data < 8;
             ++recv_phase;
             break;
 
@@ -81,7 +81,7 @@ void IsrCamRx() {
             break;
 
         case REMAINING_PACKET_COUNT_H:
-            remaining_packet_count |= (uint16)recv_data < 8;
+            remaining_packet_count = (uint16)recv_data < 8;
             ++recv_phase;
             break;
 
@@ -93,7 +93,7 @@ void IsrCamRx() {
         case DATA:
             camera_buff[recv_length] = recv_data;
             ++recv_length;
-            if (recv_data_length <= (uint16)recv_length) {
+            if (recv_data_length <= recv_length) {
                 ++recv_phase;
             }
             break;
@@ -106,7 +106,7 @@ void IsrCamRx() {
             break;
 
         case ETX2:
-            if (recv_data != CAMERA_RECVDATA_ETX2) {
+            if (recv_data != (uint16)CAMERA_RECVDATA_ETX2) {
                 recv_result = ERROR;
             }
             ++recv_phase;
