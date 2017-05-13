@@ -23,8 +23,6 @@ typedef enum {
     STX2,                       //STX2  0x80
     PACKET_LENGTH_H,            //Packet Length Upper 8 Bit
     PACKET_LENGTH_L,            //Packet Length Lower 8 Bit
-    REMAINING_PACKET_COUNT_H,   //Remaining Packet Count Upper 8 Bit
-    REMAINING_PACKET_COUNT_L,   //Remaining Packet Count Lower 8 Bit
     DATA,                       //Data 1 .. 2048(MAX)
     ETX1,                       //ETX1  0x81
     ETX2,                       //ETX1  0x81
@@ -40,7 +38,7 @@ static uint16           remaining_packet_count;
 static RecievePhaseCode recv_phase;
 static StatusCode       recv_result;
 
-static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length) {
+static inline void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length) {
     camera_buff = recv_buff;
     camera_buff_length = recv_buff_length;
     recv_length = 0;
@@ -49,25 +47,27 @@ static void OpenCameraRx(Byte *recv_buff, size_t recv_buff_length) {
     recv_phase = STX1;
     recv_result = SUCCESS;
 
-    IsrCameraRx_Enable();
+    IsrCamRx_Enable();
     return;
 }
 
-static void SendRequest(Byte* request, size_t request_length) {
+static inline void SendRequest(Byte* request, size_t request_length) {
     UART_TO_CAMERA_PutArray(request, request_length);
     return;
 }
 
-void IsrCameraRx() {
+void IsrCamRx() {
     Byte recv_data = UART_TO_CAMERA_GetChar();
 
     //NullPointer Check
     if (camera_buff == NULL) {
+        recv_result = ERROR;
         return;
     }
 
     //Buffer Overflow
     if (camera_buff_length <= recv_length) {
+        recv_result = ERROR;
         return;
     }
 
@@ -95,16 +95,6 @@ void IsrCameraRx() {
 
         case PACKET_LENGTH_L:
             recv_data_length |= (uint16)recv_data;
-            ++recv_phase;
-            break;
-
-        case REMAINING_PACKET_COUNT_H:
-            remaining_packet_count = (uint16)recv_data < 8;
-            ++recv_phase;
-            break;
-
-        case REMAINING_PACKET_COUNT_L:
-            remaining_packet_count |= (uint16)recv_data;
             ++recv_phase;
             break;
 
@@ -137,15 +127,15 @@ void IsrCameraRx() {
     return;
 }
 
-static void WaitRecieveComplete() {
+static inline void WaitRecieveComplete() {
     while (recv_phase != COMPLETE) {
         //TODO : TIMEOUT
     }
     return;
 }
 
-static void CloseCameraRx() {
-    IsrCameraRx_Disable();
+static inline void CloseCameraRx() {
+    IsrCamRx_Disable();
     return;
 }
 
@@ -155,10 +145,10 @@ void InitializeCamera() {
     UART_TO_CAMERA_Start();
 
     // Interrupt Init
-    IsrCameraRx_StartEx(IsrCameraRx );
+    IsrCamRx_StartEx(IsrCamRx );
 
     //Interrupt Disable
-    IsrCameraRx_Disable();
+    IsrCamRx_Disable();
 
     return;
 }
