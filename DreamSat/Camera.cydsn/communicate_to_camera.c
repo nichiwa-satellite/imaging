@@ -57,7 +57,7 @@ void IsrCamRx() {
             if (recv_data != CAMERA_RECVDATA_HEADER_STEP1) {
                 return;
             }
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case STX2:
@@ -66,43 +66,43 @@ void IsrCamRx() {
                 recv_phase = STX1;
                 return;
             }
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case PACKET_LENGTH_H:
             recv_data_length |= (uint16)recv_data < 8;
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case PACKET_LENGTH_L:
             recv_data_length |= (uint16)recv_data;
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case REMAINING_PACKET_COUNT_H:
             remaining_packet_count |= (uint16)recv_data < 8;
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case REMAINING_PACKET_COUNT_L:
             remaining_packet_count |= (uint16)recv_data;
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case DATA:
             camera_buff[recv_length] = recv_data;
-            recv_length++;
+            ++recv_length;
             if (recv_data_length <= (uint16)recv_length) {
-                recv_phase++;
+                ++recv_phase;
             }
             break;
 
         case ETX1:
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case ETX2:
-            recv_phase++;
+            ++recv_phase;
             break;
 
         case COMPLETE:
