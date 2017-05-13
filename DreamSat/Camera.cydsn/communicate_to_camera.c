@@ -152,13 +152,9 @@ StatusCode CommunicateToCamera(Byte* request, size_t request_length, Byte *recv_
     UART_TO_CAMERA_PutArray(request, request_length);
 
     //Recieve Complete Wait
-    while (1) {
+    while (camera_buff_length <= recv_length) {
         //TODO : TIMEOUT
-        if (camera_buff_length <= recv_length) {
-            //Interrupt Disanable
-            IsrCamRx_Disable();
-            break;
-        }
+        IsrCamRx_Disable();
     }
 
     return SUCCESS;
