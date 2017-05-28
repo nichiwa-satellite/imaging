@@ -43,7 +43,6 @@ Command allCommandList[COMMAND_MAX] = {
 };
 
 StatusCode AssignCommand(Byte* command) {
-    StatusCode ret = SUCCESS;
     switch (ConvertCommand(command)) {
       case SHOOT:
         OpeShoot(&SendToEarth);
@@ -66,10 +65,10 @@ StatusCode AssignCommand(Byte* command) {
       case FULL_PANIC:
         OpeFullPanic(&SendToEarth);
         break;
-      default:
-        break;
+      case COMMAND_MAX:
+        return ERROR;
     }
-    return ret;
+    return SUCCESS;
 }
 
 CommandType ConvertCommand(Byte* command) {
