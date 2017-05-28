@@ -50,7 +50,7 @@ void InitializeUartToEarth()
     IsrEarthRx_StartEx(IsrEarthRx);
 }
 
-void RecieveFromEarth(Byte* command)
+StatusCode RecieveFromEarth(Byte* command)
 {
     recv_count = 0;
     IsrEarthRx_Enable();
@@ -58,6 +58,7 @@ void RecieveFromEarth(Byte* command)
     IsrEarthRx_Disable();
 
     memcpy(command, recv_data_buff, COMMAND_SIZE);
+    return SUCCESS;
 }
 
 StatusCode SendToEarth64(Byte* reply, size_t reply_size) {

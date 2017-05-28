@@ -16,11 +16,4 @@ typedef enum {
     ERROR
 }StatusCode;
 
-typedef enum {
-    HELLO,
-    PANIC,
-    PARROTTING
-}CommandType;
-
-
 #endif //DREAMSAT_CAMERA_COMMON_H_
