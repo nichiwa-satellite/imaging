@@ -6,9 +6,9 @@
  * ========================================
 */
 
-#include "ope_hello.h"
+#include "ope_shoot.h"
 
-void OpeHello(reply_func reply) {
-    Byte replytext[5] = "HELLO";
+void OpeShoot(reply_func reply) {
+    Byte replytext[5] = "SHOOT";
     (*reply)(replytext, sizeof(replytext));
 }

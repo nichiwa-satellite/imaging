@@ -8,8 +8,7 @@
 
 #include "ope_panic.h"
 
-void OpePanic(reply_func reply)
-{
+void OpePanic(reply_func reply) {
     Byte replytext[5] = "PANIC";
     (*reply)(replytext, sizeof(replytext));
 }

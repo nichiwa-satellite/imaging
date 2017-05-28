@@ -14,8 +14,7 @@
 
 #define COMMAND_SIZE (6)
 
-void RecieveFromEarth(Byte*);
-CommandType ConvertCommand(Byte*);
+StatusCode RecieveFromEarth(Byte*);
 StatusCode SendToEarth(Byte*, size_t);
 void InitializeUartToEarth();
 

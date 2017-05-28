@@ -6,9 +6,9 @@
  * ========================================
 */
 
-#include "ope_hello.h"
+#include "ope_send_thumb.h"
 
-void OpeHello(reply_func reply) {
-    Byte replytext[5] = "HELLO";
+void OpeSendThumb(reply_func reply) {
+    Byte replytext[6] = "SEND-T";
     (*reply)(replytext, sizeof(replytext));
 }
