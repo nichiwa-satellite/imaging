@@ -10,8 +10,7 @@
 #include "convert_cmd.h"
 #include "communicate_to_earth.h"
 
-int main(void)
-{
+int main(void) {
     Initialize();
 
     while (1) {   

@@ -29,21 +29,20 @@
 
 typedef struct {
     CommandType cmd_no;
-    Byte cmd_pattern[8];
-}CommandList;
+    Byte cmd_pattern;
+}Command;
 
-CommandList allCommandList[COMMAND_MAX] = {
-    {SHOOT,        "11000001"},
-    {SEND_THUMB,   "11000010"},
-    {SEND_IMAGE,   "11000011"},
-    {DELETE_IMAGE, "11000100"},
-    {CHECK_STATE,  "11000101"},
-    {PART_PANIC,   "01100110"},
-    {FULL_PANIC,   "11100111"}
+Command allCommandList[COMMAND_MAX] = {
+    {SHOOT,        0b11000001},
+    {SEND_THUMB,   0b11000010},
+    {SEND_IMAGE,   0b11000011},
+    {DELETE_IMAGE, 0b11000100},
+    {CHECK_STATE,  0b11000101},
+    {PART_PANIC,   0b01100110},
+    {FULL_PANIC,   0b11100111}
 };
 
-StatusCode AssignCommand(Byte* command)
-{
+StatusCode AssignCommand(Byte* command) {
     StatusCode ret = SUCCESS;
     switch (ConvertCommand(command)) {
       case SHOOT:
@@ -73,12 +72,11 @@ StatusCode AssignCommand(Byte* command)
     return ret;
 }
 
-CommandType ConvertCommand(Byte* command)
-{
+CommandType ConvertCommand(Byte* command) {
     int i;
     CommandType cmd_type = 0;
     for (i = 0; i < COMMAND_MAX; i++) {
-        if (memcmp(command, allCommandList[i].cmd_pattern, sizeof(allCommandList[i].cmd_pattern)) == 0){
+        if (memcmp(command, &(allCommandList[i].cmd_pattern), sizeof(allCommandList[i].cmd_pattern)) == 0){
             cmd_type = allCommandList[i].cmd_no;
         }
     }

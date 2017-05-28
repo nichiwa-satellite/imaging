@@ -9,8 +9,7 @@
 #include "communicate_to_earth.h"
 #include "initialize.h"
 
-void Initialize()
-{
+void Initialize() {
     InitializeUartToEarth();
     
     CyGlobalIntEnable;
