@@ -17,7 +17,7 @@ CommandType ConvertCommand(Byte* command)
 {
     const Byte    khello[] = {'h','e','l','l','o'};
     const Byte    kpanic[] = {'p','a','n','i','c'};
-    const Byte    kcamerashot[] = {'c','a','m','e','r','a'};
+    const Byte    kcamerashot[] = {'c','a','m','e','r'};
  
     CommandType cmd_type = 0;
     if (memcmp(command, khello, sizeof(khello)) == 0){

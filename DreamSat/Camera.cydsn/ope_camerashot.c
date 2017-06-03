@@ -10,7 +10,7 @@
 #include "communicate_to_camera.h"
 
 //TODO : Recieve Data Size
-#define RECIEVE_DATASIZE    ( 256 * 256 )
+#define RECIEVE_DATASIZE    ( 2048 )
 
 void OpeCameraShot(reply_func reply) {
     //TODO : Set Camera Shot Command
