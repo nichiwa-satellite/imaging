@@ -7,38 +7,18 @@
 */
 #include "project.h"
 #include "initialize.h"
+#include "convert_cmd.h"
 #include "communicate_to_earth.h"
 
-#include "operation.h"
-#include "ope_hello.h"
-#include "ope_panic.h"
-#include "ope_camerashot.h"
-#include "ope_parroting.h"
-
-int main(void)
-{
-    Byte command[COMMAND_SIZE] = {0};
+int main(void) {
 
     Initialize();
 
-    RecieveFromEarth(command);
-
-    switch (ConvertCommand(command)) {
-      case HELLO:
-        OpeHello(&SendToEarth);
-        break;
-      case PANIC:
-        OpePanic(&SendToEarth);
-        break;
-      case CAMERASHOT:
-        OpeCameraShot(&SendToEarth);
-        break;
-      case PARROTTING:
-        OpeParroting(&SendToEarth);
-        break;
-      default:
-        break;
+    while (1) {   
+        Byte command[COMMAND_SIZE] = {0};
+        if (RecieveFromEarth(command)) {
+            AssignCommand(command);
+        }
     }
-
     return 0;
 }

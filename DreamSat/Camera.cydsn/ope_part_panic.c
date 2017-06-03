@@ -6,9 +6,9 @@
  * ========================================
 */
 
-#include "ope_hello.h"
+#include "ope_part_panic.h"
 
-void OpeHello(reply_func reply) {
-    Byte replytext[5] = "HELLO";
+void OpePartPanic(reply_func reply) {
+    Byte replytext[7] = "P-PANIC";
     (*reply)(replytext, sizeof(replytext));
 }

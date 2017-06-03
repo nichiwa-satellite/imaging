@@ -10,8 +10,7 @@
 #include "communicate_to_camera.h"
 #include "initialize.h"
 
-void Initialize()
-{
+void Initialize() {
     InitializeUartToEarth();
     InitializeCamera();
 

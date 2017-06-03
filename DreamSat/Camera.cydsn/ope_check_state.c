@@ -6,9 +6,9 @@
  * ========================================
 */
 
-#include "ope_hello.h"
+#include "ope_check_state.h"
 
-void OpeHello(reply_func reply) {
-    Byte replytext[5] = "HELLO";
+void OpeCheckState(reply_func reply) {
+    Byte replytext[5] = "state";
     (*reply)(replytext, sizeof(replytext));
 }

@@ -20,8 +20,7 @@ uint8 recv_data_buff[COMMAND_SIZE];
 int recv_count = 0;
 int recv_stx_flg = 0;
 
-void IsrEarthRx()
-{
+void IsrEarthRx() {
     unsigned char recv_data;
     recv_data = UART_TO_EARTH_GetChar();
     
@@ -42,22 +41,21 @@ void IsrEarthRx()
     return;
 }
 
-void InitializeUartToEarth()
-{
+void InitializeUartToEarth() {
     UART_TO_EARTH_Init();
     UART_TO_EARTH_Start();
 
     IsrEarthRx_StartEx(IsrEarthRx);
 }
 
-void RecieveFromEarth(Byte* command)
-{
+StatusCode RecieveFromEarth(Byte* command) {
     recv_count = 0;
     IsrEarthRx_Enable();
     while (recv_count <= COMMAND_SIZE) {}
     IsrEarthRx_Disable();
 
     memcpy(command, recv_data_buff, COMMAND_SIZE);
+    return SUCCESS;
 }
 
 StatusCode SendToEarth64(Byte* reply, size_t reply_size) {

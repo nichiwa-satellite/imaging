@@ -6,9 +6,9 @@
  * ========================================
 */
 
-#include "ope_hello.h"
+#include "ope_send_image.h"
 
-void OpeHello(reply_func reply) {
-    Byte replytext[5] = "HELLO";
+void OpeSendImage(reply_func reply) {
+    Byte replytext[6] = "SEND-I";
     (*reply)(replytext, sizeof(replytext));
 }
