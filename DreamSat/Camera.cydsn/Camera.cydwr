@@ -301,10 +301,10 @@
       <Data key="d8d679e8-2bf6-42e7-9a14-7ea192262c0e/be0a0e37-ad17-42ca-b5a1-1a654d736358" value="UART_TO_CAMERA_IntClock" />
     </Group>
     <Group key="Pin">
-      <Data key="0f02df57-f5cc-4b78-8cf9-568f816f4c4e" value="CAM_RX" />
-      <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="COMM_RX" />
-      <Data key="e0eea9bd-99a1-4adf-9fc4-92bc3f35f2be" value="CAM_TX" />
-      <Data key="ed092b9b-d398-4703-be89-cebf998501f6" value="COMM_TX" />
+      <Data key="0f02df57-f5cc-4b78-8cf9-568f816f4c4e" value="CAMERA_RX" />
+      <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="EARTH_RX" />
+      <Data key="e0eea9bd-99a1-4adf-9fc4-92bc3f35f2be" value="CAMERA_TX" />
+      <Data key="ed092b9b-d398-4703-be89-cebf998501f6" value="EARTH_TX" />
     </Group>
   </Group>
   <Group key="EEPROM">

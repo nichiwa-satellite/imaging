@@ -16,7 +16,7 @@
 #include "ope_panic.h"
 #include "ope_parroting.h"
 
-#include "ope_shoot.h"
+#include "ope_camerashot.h"
 #include "ope_send_image.h"
 #include "ope_send_thumb.h"
 #include "ope_delete_Image.h"
@@ -45,7 +45,7 @@ Command allCommandList[COMMAND_MAX] = {
 StatusCode AssignCommand(Byte* command) {
     switch (ConvertCommand(command)) {
       case SHOOT:
-        OpeShoot(&SendToEarth);
+        OpeCameraShot(&SendToEarth);
         break;
       case SEND_THUMB:
         OpeSendThumb(&SendToEarth);

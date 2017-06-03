@@ -11,11 +11,12 @@
 #include "communicate_to_earth.h"
 
 int main(void) {
+
     Initialize();
 
     while (1) {   
         Byte command[COMMAND_SIZE] = {0};
-        if (RecieveFromEarth(command)) {
+        if (RecieveFromEarth(command) == SUCCESS) {
             AssignCommand(command);
         }
     }
