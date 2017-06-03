@@ -16,7 +16,7 @@ int main(void) {
 
     while (1) {   
         Byte command[COMMAND_SIZE] = {0};
-        if (RecieveFromEarth(command)) {
+        if (RecieveFromEarth(command) == SUCCESS) {
             AssignCommand(command);
         }
     }
